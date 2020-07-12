@@ -280,7 +280,7 @@ class PhysRegion:
             node.transform_count+=1
 def test_physics():
     otn=OctTreeNode()
-
+    '''
     for x in frange(.4,.6,2**-5):
         for y in frange(.4,.6,2**-5):
             for z in frange(.4,.6,2**-5):
@@ -289,10 +289,24 @@ def test_physics():
 
 
     for x in frange(.6,.8,2**-6):
-        for y in frange(.45,.55,2**-6):
-            for z in frange(.45,.55,2**-6):
+        for y in frange(.34,.58,2**-6):
+            for z in frange(.42,.58,2**-6):
                 otn.set(np.array((x,y,z)),4,True)
+    '''
+    def jk(xx,yy,zz):
+        for x in frange(.47+xx,.53+xx,2**-6):
+            for y in frange(.4+yy,.7+yy,2**-6):
+                for z in frange(.47+zz,.53+zz,2**-6):
+                    otn.set(np.array((x,y,z)),4,True)
+    jk(.11,0,.11)
+    jk(-.11,0,.11)
+    jk(-.11,0,-.11)
+    jk(.11,0,-.11)
 
+    for x in frange(.4,.61,2**-6):
+        for y in frange(.6,.7 ,2**-6):
+            for z in frange(.4,.61,2**-6):
+                otn.set(np.array((x,y,z)),4,True)
 
     otn.set_positions(np.zeros(3),np.ones(3))
     points=otn.get_points()
@@ -300,7 +314,7 @@ def test_physics():
 
     regions=[]
     for point in points:
-        region_subtree=otn.get_AABB_nodes(point-.05,point+.05)
+        region_subtree=otn.get_AABB_nodes(point-.12,point+.12)
 
         regions.append(PhysRegion(region_subtree))
         for node in region_subtree.get_leaf_nodes():
@@ -339,7 +353,7 @@ def test_physics():
     _dbg_indx=0
     dbg_indx=0
     while True:
-        _dbg_indx+=.1
+        _dbg_indx+=.02
         dbg_indx=int(_dbg_indx)
 
         debug_points=[]
@@ -415,15 +429,12 @@ test_physics()
 
 def test_octTree():
     otn=OctTreeNode()
-
+    '''
     for x in frange(.2,.6,2**-5):
         for y in frange(.4,.6,2**-5):
             for z in frange(.4,.6,2**-5):
                 otn.set(np.array((x,y,z)),4,True)
-    for x in frange(.6,1,2**-6):
-        for y in frange(.4,.6,2**-6):
-            for z in frange(.4,.6,2**-6):
-                otn.set(np.array((x,y,z)),5,True)
+    '''
 
     otn.set(np.array((.5,.51,.49)),3,True)
     otn.set(np.array((.5,.51,.51)),3,True)
